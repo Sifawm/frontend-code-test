@@ -10,9 +10,19 @@ const MainStore = types
       addBox(box) {
         self.boxes.push(box);
       },
+
+      unselectAll() {
+        for (const box of self.selectedBoxes) {
+          box.unselect();
+        }
+      },
     };
   })
-  .views(self => ({}));
+  .views(self => ({
+    get selectedBoxes() {
+      return self.boxes.filter(box => box.selected);
+    },
+  }));
 
 const store = MainStore.create();
 

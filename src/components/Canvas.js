@@ -16,6 +16,7 @@ function Canvas({ store }) {
           width={box.width}
           height={box.height}
           box={box}
+          selected={box.selected}
         />
       ))}
     </div>

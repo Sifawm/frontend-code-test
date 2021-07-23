@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree';
 import BoxModel from './models/Box';
 
-const MainStore = types
+export const MainStore = types
   .model('MainStore', {
     boxes: types.array(BoxModel),
   })

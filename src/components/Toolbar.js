@@ -6,6 +6,7 @@ import BoxModel from '../stores/models/Box';
 
 function Toolbar(props) {
   const { selectedBoxes, removeSelected, changeColor } = props.store;
+  const { canUndo, undo, canRedo, redo } = props.undoManager;
 
   const inputColor = useRef(null);
 
@@ -24,12 +25,35 @@ function Toolbar(props) {
     changeColor(event.target.value);
   };
 
+  const startChangeColor = event => {
+    props.undoManager.startGroup(() => {
+      onChangeColor(event);
+    });
+  };
+
+  const endChangeColor = event => {
+    props.undoManager.stopGroup();
+  };
+
   return (
     <div className="toolbar">
       <button onClick={addBox}>Add Box</button>
       <button onClick={removeSelected}>Remove Box</button>
-      <input ref={inputColor} type="color" aria-label="color-input" onChange={onChangeColor} />
+      <input
+        ref={inputColor}
+        type="color"
+        aria-label="color-input"
+        onChange={onChangeColor}
+        onFocus={startChangeColor}
+        onBlur={endChangeColor}
+      />
       <span>{selectedBoxes.length === 0 ? 'No boxes selected' : `${selectedBoxes.length} box(es) selected`}</span>
+      <button onClick={undo} disabled={!canUndo}>
+        Undo
+      </button>
+      <button onClick={redo} disabled={!canRedo}>
+        Redo
+      </button>
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import * as mobxStateTree from 'mobx-state-tree';
 import BoxModel from '../../../stores/models/Box';
+import { undoManager } from '../../../stores/UndoManager';
 
 describe('BoxModel', () => {
   let box;
 
   beforeEach(() => {
+    undoManager.withoutUndo = jest.fn(cb => cb());
     box = BoxModel.create({ id: 'box-bowser' });
   });
 
@@ -32,6 +34,7 @@ describe('BoxModel', () => {
       box.select(true);
 
       expect(box.selected).toBeTruthy();
+      expect(undoManager.withoutUndo).toBeCalled();
       expect(parentStore.unselectAll).not.toBeCalled();
     });
 
@@ -39,7 +42,16 @@ describe('BoxModel', () => {
       box.select();
 
       expect(box.selected).toBeTruthy();
+      expect(undoManager.withoutUndo).toBeCalled();
       expect(parentStore.unselectAll).toBeCalled();
+    });
+
+    it('should unselect current box', () => {
+      box.select();
+      box.unselect();
+
+      expect(box.selected).toBeFalsy();
+      expect(undoManager.withoutUndo).toBeCalled();
     });
 
     it('should change color', () => {

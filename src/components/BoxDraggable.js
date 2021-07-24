@@ -6,7 +6,6 @@ function BoxDraggable(props) {
 
   const onSelect = event => {
     const multiple = event.ctrlKey;
-
     if (multiple && props.selected) {
       box.unselect();
     } else {

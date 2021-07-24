@@ -1,11 +1,16 @@
 import { types } from 'mobx-state-tree';
+import { UndoManager } from 'mst-middlewares';
 import BoxModel from './models/Box';
+import { setUndoManager } from './UndoManager';
 
 export const MainStore = types
   .model('MainStore', {
     boxes: types.array(BoxModel),
+    history: types.optional(UndoManager, {}),
   })
   .actions(self => {
+    setUndoManager(self);
+
     return {
       addBox(box) {
         self.boxes.push(box);

@@ -20,6 +20,12 @@ export const MainStore = types
       removeSelected() {
         self.boxes = self.boxes.filter(box => !box.selected);
       },
+
+      changeColor(color) {
+        for (const box of self.selectedBoxes) {
+          box.setColor(color);
+        }
+      },
     };
   })
   .views(self => ({

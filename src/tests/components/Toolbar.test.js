@@ -60,4 +60,14 @@ describe('Toolbar', () => {
 
     expect(store.removeSelected).toBeCalled();
   });
+
+  it('calls changeColor when set a color with the input', () => {
+    store.changeColor = jest.fn();
+
+    const { getByLabelText } = render(<Toolbar store={store} />);
+
+    fireEvent.input(getByLabelText('color-input'), { target: { value: '#0000ff' } });
+
+    expect(store.changeColor).toBeCalledWith('#0000ff');
+  });
 });

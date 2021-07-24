@@ -41,5 +41,15 @@ describe('BoxModel', () => {
       expect(box.selected).toBeTruthy();
       expect(parentStore.unselectAll).toBeCalled();
     });
+
+    it('should change color', () => {
+      box.setColor('#ff0000');
+
+      expect(box.color).toEqual('#ff0000');
+
+      box.setColor('#00ff00');
+
+      expect(box.color).toEqual('#00ff00');
+    });
   });
 });

@@ -1,4 +1,5 @@
 import { getParent, hasParent, types } from 'mobx-state-tree';
+import { undoManager } from '../UndoManager';
 
 const BoxModel = types
   .model('Box', {
@@ -13,15 +14,19 @@ const BoxModel = types
   .views(self => ({}))
   .actions(self => ({
     select(multiple = false) {
-      if (!multiple && hasParent(self, 2)) {
-        getParent(self, 2).unselectAll();
-      }
+      undoManager.withoutUndo(() => {
+        if (!multiple && hasParent(self, 2)) {
+          getParent(self, 2).unselectAll();
+        }
 
-      self.selected = true;
+        self.selected = true;
+      });
     },
 
     unselect() {
-      self.selected = false;
+      undoManager.withoutUndo(() => {
+        self.selected = false;
+      });
     },
 
     setColor(color) {

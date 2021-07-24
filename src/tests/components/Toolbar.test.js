@@ -74,6 +74,21 @@ describe('Toolbar', () => {
     expect(store.changeColor).toBeCalledWith('#0000ff');
   });
 
+  it('calls changeColor without undo-redo capabilities', () => {
+    const startGroup = jest.spyOn(undoManager, 'startGroup');
+    const endGroup = jest.spyOn(undoManager, 'stopGroup');
+
+    const { getByLabelText } = render(<Toolbar store={store} undoManager={undoManager} />);
+
+    fireEvent.focus(getByLabelText('color-input'));
+
+    expect(startGroup).toBeCalled();
+
+    fireEvent.blur(getByLabelText('color-input'));
+
+    expect(endGroup).toBeCalled();
+  });
+
   it('disable undo button when cant undo', () => {
     jest.spyOn(undoManager, 'canUndo', 'get').mockReturnValue(false);
 

@@ -47,5 +47,14 @@ describe('MainStore', () => {
       expect(MainStore.selectedBoxes.length).toEqual(2);
       MainStore.selectedBoxes.forEach(box => expect(box.selected).toBeTruthy());
     });
+
+    it('should remove selected boxes', () => {
+      expect(MainStore.boxes.length).toEqual(3);
+
+      MainStore.removeSelected();
+
+      expect(MainStore.boxes.length).toEqual(1);
+      expect(MainStore.boxes[0].id).toEqual('box-2');
+    });
   });
 });

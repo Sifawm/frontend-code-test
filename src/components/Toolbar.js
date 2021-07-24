@@ -5,7 +5,7 @@ import uuid from 'uuid/v4';
 import BoxModel from '../stores/models/Box';
 
 function Toolbar(props) {
-  const { selectedBoxes, removeSelected } = props.store;
+  const { selectedBoxes, removeSelected, changeColor } = props.store;
 
   const inputColor = useRef(null);
 
@@ -20,11 +20,15 @@ function Toolbar(props) {
     props.store.addBox(box);
   };
 
+  const onChangeColor = event => {
+    changeColor(event.target.value);
+  };
+
   return (
     <div className="toolbar">
       <button onClick={addBox}>Add Box</button>
       <button onClick={removeSelected}>Remove Box</button>
-      <input ref={inputColor} type="color" aria-label="color-input" />
+      <input ref={inputColor} type="color" aria-label="color-input" onChange={onChangeColor} />
       <span>{selectedBoxes.length === 0 ? 'No boxes selected' : `${selectedBoxes.length} box(es) selected`}</span>
     </div>
   );

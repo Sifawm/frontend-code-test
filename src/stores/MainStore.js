@@ -16,6 +16,10 @@ export const MainStore = types
           box.unselect();
         }
       },
+
+      removeSelected() {
+        self.boxes = self.boxes.filter(box => !box.selected);
+      },
     };
   })
   .views(self => ({

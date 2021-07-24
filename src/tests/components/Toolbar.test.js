@@ -50,4 +50,14 @@ describe('Toolbar', () => {
     text = screen.getByText('3 box(es) selected');
     expect(text).toBeDefined();
   });
+
+  it('calls removeSelected when user clicks remove box button', () => {
+    store.removeSelected = jest.fn();
+
+    const { getByText } = render(<Toolbar store={store} />);
+
+    fireEvent.click(getByText('Remove Box'));
+
+    expect(store.removeSelected).toBeCalled();
+  });
 });

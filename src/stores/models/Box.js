@@ -23,6 +23,10 @@ const BoxModel = types
     unselect() {
       self.selected = false;
     },
+
+    setColor(color) {
+      self.color = color;
+    },
   }));
 
 export default BoxModel;

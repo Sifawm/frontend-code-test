@@ -56,5 +56,12 @@ describe('MainStore', () => {
       expect(MainStore.boxes.length).toEqual(1);
       expect(MainStore.boxes[0].id).toEqual('box-2');
     });
+
+    it('should change color of selected boxes', () => {
+      MainStore.changeColor('#ffffff');
+
+      expect(MainStore.boxes[2].setColor).not.toBeCalled();
+      MainStore.boxes.filter(box => box.selected).forEach(box => expect(box.setColor).toBeCalledWith('#ffffff'));
+    });
   });
 });

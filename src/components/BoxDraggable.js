@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import interact from 'interactjs';
 import { observer } from 'mobx-react';
+import { undoManager } from '../stores/UndoManager';
 
 function BoxDraggable(props) {
   const { box } = props;
@@ -19,8 +20,10 @@ function BoxDraggable(props) {
       ],
       listeners: {
         start() {
-          console.log('entra');
           isDragging.current = true;
+          undoManager.startGroup(() => {
+            box.move(0, 0);
+          });
         },
 
         move(event) {
@@ -28,6 +31,10 @@ function BoxDraggable(props) {
           const y = event.dy;
 
           box.move(x, y);
+        },
+
+        end() {
+          undoManager.stopGroup();
         },
       },
     });

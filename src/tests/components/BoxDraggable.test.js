@@ -8,36 +8,36 @@ describe('BoxDraggable', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    box = BoxModel.create({ id: 'box-bowser' });
+    box = BoxModel.create({ id: 'box-bowser', width: 200, height: 200, left: 0, top: 0 });
   });
 
-  // it('calls select box when click over it', () => {
-  //   box.select = jest.fn();
+  it('calls select box when click over it', () => {
+    box.select = jest.fn();
 
-  //   const { getByText } = render(
-  //     <BoxDraggable id="box-bowser" box={box}>
-  //       box
-  //     </BoxDraggable>
-  //   );
+    const { getByText } = render(
+      <BoxDraggable id="box-bowser" box={box}>
+        box
+      </BoxDraggable>
+    );
 
-  //   fireEvent.click(getByText('box'));
+    fireEvent.click(getByText('box'));
 
-  //   expect(box.select).toBeCalledWith(false);
-  // });
+    expect(box.select).toBeCalledWith(false);
+  });
 
-  // it('calls select multi when click over it with ctrl key pressed', () => {
-  //   box.select = jest.fn();
+  it('calls select multi when click over it with ctrl key pressed', () => {
+    box.select = jest.fn();
 
-  //   const { getByText } = render(
-  //     <BoxDraggable id="box-bowser" box={box}>
-  //       box
-  //     </BoxDraggable>
-  //   );
+    const { getByText } = render(
+      <BoxDraggable id="box-bowser" box={box}>
+        box
+      </BoxDraggable>
+    );
 
-  //   fireEvent.click(getByText('box'), { ctrlKey: true });
+    fireEvent.click(getByText('box'), { ctrlKey: true });
 
-  //   expect(box.select).toBeCalledWith(true);
-  // });
+    expect(box.select).toBeCalledWith(true);
+  });
 
   it('calls unselect when click over it with ctrl key pressed', () => {
     box.unselect = jest.fn();

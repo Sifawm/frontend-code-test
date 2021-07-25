@@ -63,5 +63,17 @@ describe('BoxModel', () => {
 
       expect(box.color).toEqual('#00ff00');
     });
+
+    it('should move current box', () => {
+      box.move(100, 300);
+
+      expect(box.left).toEqual(300);
+      expect(box.top).toEqual(400);
+
+      box.move(-300, -400);
+
+      expect(box.left).toEqual(0);
+      expect(box.top).toEqual(0);
+    });
   });
 });

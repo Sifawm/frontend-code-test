@@ -1,6 +1,7 @@
-import { types } from 'mobx-state-tree';
+import { applySnapshot, getSnapshot, types } from 'mobx-state-tree';
 import { UndoManager } from 'mst-middlewares';
 import BoxModel from './models/Box';
+import { persist } from './Persist';
 import { setUndoManager } from './UndoManager';
 
 export const MainStore = types
@@ -39,6 +40,19 @@ export const MainStore = types
     },
   }));
 
-const store = MainStore.create();
+const store = MainStore.create(JSON.parse(localStorage.getItem('store') ?? '{}'));
+
+persist(
+  () => store.history.undoIdx,
+  () => {
+    const snapshot = getSnapshot(store);
+    store.unselectAll();
+    const storeJson = JSON.stringify(store);
+    applySnapshot(store, snapshot);
+
+    return storeJson;
+  },
+  300
+);
 
 export default store;

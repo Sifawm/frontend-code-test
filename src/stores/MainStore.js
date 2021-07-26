@@ -1,8 +1,8 @@
-import { applySnapshot, getSnapshot, types } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 import { UndoManager } from 'mst-middlewares';
 import BoxModel from './models/Box';
-import { persist, persistStore } from './Persist';
-import { setUndoManager, undoManager } from './UndoManager';
+import { persistStore } from './Persist';
+import { setUndoManager } from './UndoManager';
 
 export const MainStore = types
   .model('MainStore', {

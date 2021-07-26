@@ -32,6 +32,13 @@ export const MainStore = types
           box.setColor(color);
         }
       },
+
+      moveAll(x, y, ignoredId) {
+        const boxes = self.selectedBoxes.filter(box => box.id !== ignoredId);
+        for (const box of boxes) {
+          box.move(x, y, false);
+        }
+      },
     };
   })
   .views(self => ({

@@ -33,7 +33,11 @@ const BoxModel = types
       self.color = color;
     },
 
-    move(x, y) {
+    move(x, y, multi = true) {
+      if (multi && hasParent(self, 2)) {
+        getParent(self, 2).moveAll(x, y, self.id);
+      }
+
       self.left += x;
       self.top += y;
     },

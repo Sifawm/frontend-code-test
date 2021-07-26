@@ -63,5 +63,13 @@ describe('MainStore', () => {
       expect(MainStore.boxes[2].setColor).not.toBeCalled();
       MainStore.boxes.filter(box => box.selected).forEach(box => expect(box.setColor).toBeCalledWith('#ffffff'));
     });
+
+    it('should move all selected boxes', () => {
+      MainStore.moveAll(100, 100, 'box-0');
+
+      expect(MainStore.boxes[0].move).not.toBeCalled();
+      expect(MainStore.boxes[2].move).not.toBeCalled();
+      expect(MainStore.boxes[1].move).toBeCalledWith(100, 100, false);
+    });
   });
 });

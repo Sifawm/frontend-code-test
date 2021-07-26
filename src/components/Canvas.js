@@ -1,6 +1,5 @@
-import React from 'react';
-
 import { observer } from 'mobx-react';
+import React from 'react';
 import Box from '../components/Box';
 
 function Canvas({ store }) {

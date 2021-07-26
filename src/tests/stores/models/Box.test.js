@@ -23,7 +23,7 @@ describe('BoxModel', () => {
   });
 
   describe('select', () => {
-    const parentStore = { unselectAll: jest.fn() };
+    const parentStore = { unselectAll: jest.fn(), moveAll: jest.fn() };
 
     beforeEach(() => {
       jest.spyOn(mobxStateTree, 'hasParent').mockReturnValue(true);
@@ -65,15 +65,21 @@ describe('BoxModel', () => {
     });
 
     it('should move current box', () => {
-      box.move(100, 300);
+      box.move(100, 300, false);
 
       expect(box.left).toEqual(300);
       expect(box.top).toEqual(400);
 
-      box.move(-300, -400);
+      box.move(-300, -400, false);
 
       expect(box.left).toEqual(0);
       expect(box.top).toEqual(0);
+    });
+
+    it('should move all box', () => {
+      box.move(100, 300);
+
+      expect(parentStore.moveAll).toBeCalledWith(100, 300, 'box-bowser');
     });
   });
 });

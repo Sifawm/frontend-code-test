@@ -1,8 +1,8 @@
-import { applySnapshot, getSnapshot, types } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 import { UndoManager } from 'mst-middlewares';
 import BoxModel from './models/Box';
-import { persist, persistStore } from './Persist';
-import { setUndoManager, undoManager } from './UndoManager';
+import { persistStore } from './Persist';
+import { setUndoManager } from './UndoManager';
 
 export const MainStore = types
   .model('MainStore', {
@@ -30,6 +30,13 @@ export const MainStore = types
       changeColor(color) {
         for (const box of self.selectedBoxes) {
           box.setColor(color);
+        }
+      },
+
+      moveAll(x, y, ignoredId) {
+        const boxes = self.selectedBoxes.filter(box => box.id !== ignoredId);
+        for (const box of boxes) {
+          box.move(x, y, false);
         }
       },
     };

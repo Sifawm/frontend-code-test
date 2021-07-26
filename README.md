@@ -51,3 +51,23 @@ If you have any questions about the test, you can contact any of us:
 - Román (roman@genial.ly)
 
 Good Luck!
+
+# Development decissions
+
+## Add
+
+When a user adds a box to the canvas, the color used is the current selected color on Toolbar.
+
+## Select
+
+The user can select a box with:
+
+- Left Click: Unselect all boxes and select this box
+- CTRL + Left Click on an unselected box: Select this box and keep current selected boxes
+- CTR + Left Click on a selected box: Unselect this box and keep the other boxes selected
+
+## Saved state
+
+To improve size, the undo history wouldn't be saved. When the user loads the app with a saved state, the history will be empty and start from here.
+To improve performance, the save will be start after a 300ms without a new save event. Without this condition, when we have a big state to save, when we drag multiple elements, the action is not smooth.
+The saved state dont save selected elements.

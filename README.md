@@ -54,6 +54,12 @@ Good Luck!
 
 # Development decissions
 
+## Workflow
+
+- Added prettier
+- Added husky to launch prettier and jest when commit
+- GitFlow workflow (https://github.com/nvie/gitflow)
+
 ## Add
 
 When a user adds a box to the canvas, the color used is the current selected color on Toolbar.
